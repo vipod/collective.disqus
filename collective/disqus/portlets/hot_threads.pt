@@ -21,7 +21,7 @@
            tal:attributes="href python:result['link']">
           <span tal:content="python:result['title']" />
         </a>
-
+        <div class="thread-replyinfo">
         <div class="thread-comments">
           <p class="comment-text">
             <span i18n:translate=""
@@ -41,6 +41,7 @@
             tal:content="python:view.getDate(result['createdAt'])"
             tal:condition="view/data/pretty_date" />
         </div>
+		</div>
       </div>
     </div>
   </dd>

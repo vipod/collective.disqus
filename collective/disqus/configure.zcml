@@ -50,7 +50,7 @@
     name="disqus.comments.count"
     for="Products.CMFCore.interfaces.IContentish"
     layer=".interfaces.IDisqusLayer"
-    manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+    manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
     view="plone.app.layout.globals.interfaces.IViewView"
     class=".comments.CommentsCountViewlet"
     template="comments_count.pt"

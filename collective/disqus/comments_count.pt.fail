@@ -1,0 +1,13 @@
+<div class="addthis_toolbox_addthis_default_style" id="socialtools"
+ tal:define="isDiscussionAllowed view/is_discussion_allowed"
+ tal:condition="isDiscussionAllowed"
+ i18n:domain="collective.disqus">
+
+  <script tal:replace="structure view/get_counter_js" />
+
+  <a href=""
+     tal:attributes="href string:${context/absolute_url}#disqus_thread" >
+     Comments
+  </a>
+
+</div>
