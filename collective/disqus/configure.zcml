@@ -36,6 +36,11 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+  <adapter
+      for="* *"
+      factory=".userdata.DisqusSSOUserDataProvider"
+      />
+
   <browser:viewlet
     name="plone.comments"
     for="Products.CMFCore.interfaces.IContentish"

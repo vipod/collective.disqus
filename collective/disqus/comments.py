@@ -10,6 +10,8 @@ from plone.app.discussion.interfaces import IConversation
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from collective.disqus import interfaces
+from collective.disqus.utils import get_disqus_sso_message
+from collective.disqus.userdata import IDisqusSSOUserDataProvider
 
 
 class DisqusBaseViewlet(viewlets.common.ViewletBase):
@@ -51,12 +53,27 @@ class CommentsViewlet(DisqusBaseViewlet):
         vars['disqus_url'] = self.context.absolute_url()
         vars['disqus_title'] = self.context.pretty_title_or_id()
 
+        user = getMultiAdapter((self.context, self.request),
+            IDisqusSSOUserDataProvider).getUserData()
+        vars['disqus_config'] = """function() {
+            this.page.remote_auth_s3 = '%(sso_message)s';
+            this.page.api_key = '%(sso_public_key)s';
+        }
+        """ % {
+            'sso_message': get_disqus_sso_message(settings.app_secret_key,
+                user),
+            'sso_public_key': settings.app_public_key,
+        }
+
         def to_string(key):
             return "var %s='%s';" % (key, str(vars[key]))
 
         output = ''
-        for k in vars.keys():
-            output += to_string(k)
+        for k, v in vars.items():
+            if k == 'disqus_config':
+                output += "var %s=%s;" % (k, v)
+            else:
+                output += to_string(k)
         return output
 
 
