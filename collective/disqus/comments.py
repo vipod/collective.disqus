@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from Acquisition import aq_inner
-from zope.component import getUtility
+from zope.component import getUtility, getMultiAdapter
 from plone.uuid.interfaces import IUUID
 from plone.registry.interfaces import IRegistry
 
